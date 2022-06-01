@@ -1,0 +1,49 @@
+{
+  // See https://go.microsoft.com/fwlink/?LinkId=733558
+  // for the documentation about the tasks.json format
+  "version": "2.0.0",
+  "tasks": [
+    /* 
+    This task will update `./settings.json` to only include 
+    files tracked by yadm. You must use `yadm add -f` to add 
+    files to this workspace.
+
+    It runs whenever `~/.local/share/yadm/repo.git` changes, 
+    indicating the files trancked by the repo may have changed.
+    */
+    {
+      "label": "regenerate_workspace",
+      "type": "shell",
+      "command": "node ${workspaceRoot}/.vscode/workspace.mjs",
+      "runOptions": {
+        "runOn": "folderOpen"
+      },
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "new",
+        "showReuseMessage": false,
+        "clear": false,
+        "close": true
+      }
+    },
+    /*
+    When a change is made to yabairc, it will restart.
+    */
+    {
+      "label": "restart_yabai",
+      "type": "shell",
+      "command": "brew services restart yabai",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "new",
+        "showReuseMessage": false,
+        "clear": false,
+        "close": true
+      }
+    }
+  ]
+}

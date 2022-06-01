@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+: '
+<!-- ex: set syntax=markdown : set ft=markdown : '; mdsh="$( dirname "${BASH_SOURCE[0]}" )/mdsh" eval "$($mdsh --eval "$BASH_SOURCE")" # -->
+
+## MDSH Setup
+The above lines allow this script to be sourceable. [More
+info](https://github.com/bashup/mdsh#making-sourceable-scripts-and-handling-0)
+
+## Script Setup
+
+This will cause this script to fail when:
+- `e` - if any command called has an exit code > 0
+- `u` - if you reference an undefined variable
+- `o pipefail` - if any command in a pipeline errors
+
+```shell
+set -euo pipefail
+```
+
+## XCode Setup
+
+Makes sure XCode is setup properly. We'll need this to bootstrap quite
+a few things, like homebrew.
+
+```shell
+echo "$(ansi --green XCode Setup)"
+echo "  I would have set up XCode here"
+# sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
+# sudo xcodebuild -license accept
+```
+
+## Homebrew
+
+Install homebrew if `brew` command not found.
+
+```shell
+if ! command -v brew > /dev/null; then
+#  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  echo "  I would have installed homebrew here"
+fi
+```

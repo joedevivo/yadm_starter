@@ -1,0 +1,23 @@
+{
+  "search.useGlobalIgnoreFiles": true,
+  "git.scanRepositories": [
+    "./.local/share/yadm/repo.git"
+  ],
+  "watch-run.targetList": [
+    {
+      "target": "/.local/share/yadm/repo.git/**/*",
+      "task": "regenerate_workspace"
+    },
+    {
+      "target": "/.config/yabai/yabairc",
+      "task": "restart_yabai"
+    }
+  ],
+  "files.exclude": {
+    ".CFUserTextEncoding": true,
+    ".DS_Store": true,
+    ".Trash/": true
+  },
+  "git.detectSubmodules": true,
+  "git.ignoreSubmodules": true
+}

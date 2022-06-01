@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+
+# Here we make sure YADM & VSCode play nice by making sure '**' is in
+# $GIT_DIR/info/exclude
+yadm gitconfig advice.addIgnoredFile false
+eval "$(yadm enter env | grep GIT_DIR)"
+grep "^\*\*$" $GIT_DIR/info/exclude > /dev/null
+excluded=$?
+if [[ $excluded -ne O ]]; then
+  echo "**" >> $GIT_DIR/info/exclude
+fi
+
+# This bash script exists only to update some external bash dependencies and
+# make sure they're available for the rest of the scripts that are to follow.
+# Everything else will be called from `bootstrap.md`
+
+# Set directory for suplimental scripts, leveraging YADM's alternate files
+# relative to this one
+script_dir="$( dirname "${BASH_SOURCE[0]}" )/scripts"
+
+# Add script dir to $PATH for the remainder of the bootstrappening.
+PATH="$script_dir:$PATH"
+
+# check for `ansi` color updates
+. $script_dir/color.bash
+
+# check for [mdsh](https://github.com/bashup/mdsh) updates. MDSH allows us to
+# write markdown with inline bash scripts. This is called [Literate
+# Programming](http://www.literateprogramming.com/index.html)
+. $script_dir/mdsh.bash
+
+# Detect is a script of my own design for figuring out which os, architecture,
+# and package manager(s) are available.
+. $script_dir/detect.bash
+
+# Bootstrap the things
+. "$( dirname "${BASH_SOURCE[0]}" )/bootstrap.md"
